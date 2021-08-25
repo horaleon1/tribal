@@ -1,6 +1,10 @@
 {
     "home": {
         "businesses": "Businesses",
-        "createbusiness": "Create business"
+        "createbusiness": "Create business",
+        "modalBox": {
+            "addBusiness": "Add Business",
+            "editBusiness": "Edit Business"
+        }
     }
 }

@@ -3,8 +3,8 @@ import { theme } from "../../../config/colors";
 import { fontSizes } from "../../../config/font";
 
 export const StyleButton = styled.button`
+  width: ${(props) => `${props.wdt}`};
   height: 44px;
-  width: 100%;
   padding: 0 1em;
   border-radius: 100px;
   opacity: 1;

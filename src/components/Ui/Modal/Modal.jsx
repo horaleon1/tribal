@@ -1,57 +1,45 @@
-import React from "react";
+import { useRef, useCallback, useEffect } from "react";
+import ReactDom from "react-dom";
 import { Overlay, Wrapper } from "./styled";
 import Cross from "../Cross/Cross";
-import { Form, Formik } from "formik";
-import Field from "../Forms/Field/Field";
-import Button from "../Button/Button";
-import * as Yup from "yup";
+import { useSelector, useDispatch } from "react-redux";
+import { onCloseModalBox } from "../../../reducers/ui";
 
-const initialValues = {
-  businessName: "",
-};
+const Modal = ({ modalType = "", children }) => {
+  const currentModalType = useSelector((state) => state).ui.modalType;
 
-const validationSchema = Yup.object({
-  businessName: Yup.string().required("Campo obligatorio"),
-});
+  const dispatch = useDispatch();
 
-const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
+  const ref = useRef(null);
 
-const Modal = () => {
-  return (
+  const onClickOutside = useCallback(
+    (e) => {
+      if (ref.current && !ref.current.contains(e.target)) {
+        dispatch(onCloseModalBox());
+      }
+    },
+    [currentModalType]
+  );
+
+  useEffect(() => {
+    if (ref.current) {
+      window.addEventListener("mousedown", onClickOutside);
+    }
+    return () => {
+      window.removeEventListener("mousedown", onClickOutside);
+    };
+  }, [currentModalType]);
+
+  if (modalType !== currentModalType) return null;
+
+  return ReactDom.createPortal(
     <Overlay>
-      <Wrapper>
-        <Cross onClick={() => false} />
-        <Formik
-          initialValues={initialValues}
-          validationSchema={validationSchema}
-          onSubmit={async (values) => {
-            await sleep(5000);
-            alert(JSON.stringify(values, null, 2));
-          }}
-        >
-          {({ isSubmitting, errors }) => {
-            const { businessName = "" } = errors;
-            return (
-              <Form>
-                <div>
-
-                <Field
-                  id="businessName"
-                  name="businessName"
-                  label="Business Name"
-                  placeholder="Louis Vuitton"
-                  errors={businessName}
-                  type="text"
-                />
-                </div>
-
-                <Button disabled={isSubmitting} label="primary" name="Create">Crear</Button>
-              </Form>
-            );
-          }}
-        </Formik>
+      <Wrapper ref={ref}>
+        {/* <Cross onClick={() => false} /> */}
+        {children}
       </Wrapper>
-    </Overlay>
+    </Overlay>,
+    document.getElementById("modal")
   );
 };
 

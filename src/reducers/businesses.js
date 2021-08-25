@@ -1,22 +1,13 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { defaultOptions } from '../utils/headers';
 
 const initialState = {
   businesses: {},
   status: null,
 };
 
-const myHeaders = new Headers()
-myHeaders.append('Content-Type', 'application/json');
-myHeaders.append("Access-Control-Allow-Origin", "*")    
-myHeaders.append('Access-Control-Allow-Credentials','true')
-myHeaders.append('x-api-key', 'XxIWiDpit53dmgFziYiJx7vrzfxo2j6Y8PsngbW0')
-
-const defaultOptions = {
-  headers:myHeaders
-};
-
 export const getUsers = createAsyncThunk(
-  "businesses/getUsers",
+  "/businesses/getUsers",
   async (dispatch, getState) => {
     return await fetch(
       "/prod/business",
@@ -41,8 +32,5 @@ export const businesses = createSlice({
     },
   },
 });
-
-// Action creators are generated for each case reducer function
-// export const { increment, decrement, incrementByAmount } = businesses.actions;
 
 export default businesses.reducer;

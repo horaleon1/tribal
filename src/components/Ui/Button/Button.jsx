@@ -7,6 +7,7 @@ const Button = ({
   disabled = false,
   label = "primary",
   onClick = () => false,
+  wdt = '100%'
 }) => {
   return (
     <StyleButton
@@ -14,6 +15,7 @@ const Button = ({
       disabled={disabled}
       onClick={() => onClick()}
       label={label}
+      wdt={wdt}
     >
       {name}
     </StyleButton>

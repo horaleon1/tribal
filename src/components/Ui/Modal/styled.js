@@ -19,9 +19,12 @@ export const Wrapper = styled.div`
   background-color: ${theme.white};
   height: 100vh;
   width: 100%;
+  padding: 0 24px;
   @media ${media.tablet} {
     width: 450px;
-    height: 270px;
+    min-height: 170px;
+    height: auto;
     border-radius: 29px;
+    padding: 0 40px;
   }
 `;
