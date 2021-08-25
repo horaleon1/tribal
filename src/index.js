@@ -3,13 +3,41 @@ import ReactDOM from "react-dom";
 import "./index.css";
 import App from "./App";
 import { Provider } from "react-redux";
-import { store } from './store';
+import { I18nextProvider } from "react-i18next";
+import i18next from "i18next";
+import { store } from "./store";
 import reportWebVitals from "./reportWebVitals";
+
+import sidebar_en from "./translations/en/Sidebar.json";
+import sidebar_es from "./translations/es/Sidebar.json";
+import home_en from "./translations/en/Home.json";
+import home_es from "./translations/es/Home.json";
+import business_en from "./translations/en/Business.json";
+import business_es from "./translations/es/Business.json";
+
+i18next.init({
+  interpolation: { escapeValue: false },
+  lng: "en",
+  resources: {
+    en: {
+      sidebar: sidebar_en,
+      home: home_en,
+      business: business_en,
+    },
+    es: {
+      sidebar: sidebar_es,
+      home: home_es,
+      business: business_es,
+    },
+  },
+});
 
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
-      <App />
+      <I18nextProvider i18n={i18next}>
+        <App />
+      </I18nextProvider>
     </Provider>
   </React.StrictMode>,
   document.getElementById("root")

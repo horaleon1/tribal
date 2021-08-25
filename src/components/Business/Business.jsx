@@ -2,13 +2,15 @@ import React from "react";
 import HeaderContentPage from "../Ui/HeaderContentPage/HeaderContentPage";
 import LayoutBasePage from "../Layouts/LayoutBasePage/LayoutBasePage";
 import BusinessCardItem from "../Ui/BusinessCardItem/BusinessCardItem";
+import { useTranslation } from "react-i18next";
 
-const BusinessesList = () => {
+const Businesses = () => {
+  const [t, i18n] = useTranslation("business");
   return (
     <LayoutBasePage>
       <HeaderContentPage
         title="Business Name"
-        buttonName="Create person"
+        buttonName={t("business.createPerson")}
         hasIcon
       />
       <BusinessCardItem
@@ -21,4 +23,4 @@ const BusinessesList = () => {
   );
 };
 
-export default BusinessesList;
+export default Businesses;

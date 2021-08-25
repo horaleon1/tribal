@@ -1,6 +1,6 @@
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
-import BusinessesList from "./components/BusinessesList/BusinessesList";
+import Businesses from "./components/Business/Business";
 import Home from "./components/Home/Home";
 import LayoutSidebar from "./components/Layouts/LayoutSidebar/LayoutSidebar";
 import Modal from "./components/Ui/Modal/Modal";
@@ -15,7 +15,7 @@ function App() {
       <LayoutSidebar>
         <Switch>
           <Route exact path="/" component={Home} />
-          <Route path="/businesses/:slug" component={BusinessesList} />
+          <Route path="/business/:business" component={Businesses} />
           <Route component={NotFound} />
         </Switch>
       </LayoutSidebar>

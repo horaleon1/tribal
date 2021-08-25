@@ -3,9 +3,11 @@ import { theme } from "../../../config/colors";
 import { fontSizes } from "../../../config/font";
 
 export const Wrapper = styled.div`
+  height: 44px;
   width: 100%;
   display: flex;
   justify-content: space-between;
+  align-items: center;
   margin-bottom: 3em;
 `;
 export const LeftWrapper = styled.div``;

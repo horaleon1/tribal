@@ -1,27 +1,18 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  value: 0,
-  businesses: [],
+  businesses: {},
   status: null,
 };
 
 const myHeaders = new Headers()
 myHeaders.append('Content-Type', 'application/json');
-// myHeaders.append('Content-Encoding', 'gzip')
 myHeaders.append("Access-Control-Allow-Origin", "*")    
 myHeaders.append('Access-Control-Allow-Credentials','true')
-// myHeaders.append('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, DELETE')    
-// myHeaders.append('Access-Control-Allow-Origin', 'https://0.0.0.0:3000')
-// myHeaders.append(
-//      "Access-Control-Allow-Headers",
-//      "Authorization, X-API-KEY, Origin, X-Requested-With, Content-Type, Accept, Access-Control-Allow-Request-Method")   
-// myHeaders.append("Allow", "GET, POST, OPTIONS, PUT, DELETE")
-myHeaders.append('Authorization', 'XxIWiDpit53dmgFziYiJx7vrzfxo2j6Y8PsngbW0')
+myHeaders.append('x-api-key', 'XxIWiDpit53dmgFziYiJx7vrzfxo2j6Y8PsngbW0')
 
 const defaultOptions = {
   headers:myHeaders
-  // "x-api-key": "XxIWiDpit53dmgFziYiJx7vrzfxo2j6Y8PsngbW0"
 };
 
 export const getUsers = createAsyncThunk(
