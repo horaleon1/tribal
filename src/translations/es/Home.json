@@ -1,7 +1,7 @@
 {
     "home": {
         "businesses": "Negocios",
-        "createbusiness": "Crear negocio",
+        "createbusiness": "Agregar negocio",
         "modalbox": {
             "addBusiness": "Agregar negocio",
             "editBusiness": "Editar negocio"

@@ -13,7 +13,7 @@ function App() {
       <LayoutSidebar>
         <Switch>
           <Route exact path="/" component={Home} />
-          <Route path="/business/:business" component={Businesses} />
+          <Route path="/business/:businessId" component={Businesses} />
           <Route component={NotFound} />
         </Switch>
       </LayoutSidebar>

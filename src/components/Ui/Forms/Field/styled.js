@@ -19,7 +19,9 @@ export const Label = styled.label`
 `;
 
 export const Error = styled.div`
-  color: ${theme.error200};
+  color: ${theme.error300};
+  font-size: ${fontSizes.paragraph2};
+  margin-top: 0.5em;
 `;
 
 export const StyledField = styled(Field)`
@@ -34,6 +36,7 @@ export const StyledField = styled(Field)`
     padding: 0 0.5em;
     font-size: ${fontSizes.paragraph2};
     font-weight: 550;
+    opacity: 0.7;
   }
-  ${(props) => (props.errors ? `border: 1px solid ${theme.error200}` : "")}
+  ${(props) => (props.errors ? `border: 1px solid ${theme.error300}` : "")}
 `;

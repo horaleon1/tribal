@@ -3,14 +3,21 @@ import { theme } from "../../../config/colors";
 import { fontSizes } from "../../../config/font";
 
 export const Wrapper = styled.div`
+  height: 52px;
   width: 100%;
-  height: 100%auto;
   display: flex;
   justify-content: space-between;
   align-items: center;
   border-bottom: 1px solid ${theme.border};
   padding-bottom: 1.5em;
   margin-top: 1.5em;
+  color: ${theme.black};
+`;
+export const LinkWrapper = styled.div`
+  height: 100%;
+  width: 100%;
+  display: flex;
+  cursor: pointer;
 `;
 export const NameWrapper = styled.div`
   width: 40%;

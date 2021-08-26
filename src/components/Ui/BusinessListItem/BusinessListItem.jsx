@@ -1,25 +1,35 @@
 import React from "react";
 import {
   Button,
+  LinkWrapper,
   NameWrapper,
   PositionWrapper,
-  Title,
   ToolsWrapper,
   Wrapper,
 } from "./styled";
 import Pencil from "../../SVG/Pencil";
 import Trash from "../../SVG/Trash";
 
-const BusinessListItem = ({ firstColumn, secondColumn = "" }) => {
+const BusinessListItem = ({
+  firstColumn,
+  secondColumn = "",
+  deleteAction,
+  editAction,
+  onClick = () => false,
+}) => {
   return (
     <Wrapper>
-      <NameWrapper>{firstColumn}</NameWrapper>
-      {secondColumn !== "" && <PositionWrapper>{secondColumn}</PositionWrapper>}
+      <LinkWrapper onClick={() => onClick()} role="button">
+        <NameWrapper>{firstColumn}</NameWrapper>
+        {secondColumn !== "" && (
+          <PositionWrapper>{secondColumn}</PositionWrapper>
+        )}
+      </LinkWrapper>
       <ToolsWrapper>
-        <Button>
+        <Button onClick={() => editAction()}>
           <Pencil />
         </Button>
-        <Button>
+        <Button onClick={() => deleteAction()}>
           <Trash />
         </Button>
       </ToolsWrapper>

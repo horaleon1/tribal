@@ -20,11 +20,16 @@ export const Wrapper = styled.div`
   height: 100vh;
   width: 100%;
   padding: 0 24px;
+  overflow-y: auto;
   @media ${media.tablet} {
     width: 450px;
     min-height: 170px;
     height: auto;
+    max-height: 90%;
     border-radius: 29px;
     padding: 0 40px;
+    &::-webkit-scrollbar {
+      display: none;
+    }
   }
 `;

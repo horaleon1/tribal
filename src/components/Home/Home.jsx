@@ -1,43 +1,96 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import { useHistory } from "react-router";
+import { useTranslation } from "react-i18next";
+import { getBusinesses, deleteBusiness } from "../../reducers/businesses";
+import { onCloseModalBox, setModalType } from "../../reducers/ui";
 import HeaderContentPage from "../Ui/HeaderContentPage/HeaderContentPage";
 import LayoutBasePage from "../Layouts/LayoutBasePage/LayoutBasePage";
 import BusinessListItem from "../Ui/BusinessListItem/BusinessListItem";
-import { useTranslation } from "react-i18next";
-import { getUsers } from "../../reducers/businesses";
-import { setModalType } from "../../reducers/ui";
+import Spinner from "../Ui/Spinner/Spinner";
 import AddEditBusiness from "../Ui/ModalBoxes/AddEditBusiness/AddEditBusiness";
+import WarningModal from "../Ui/ModalBoxes/WarningModal/WarningModal";
 
 const Home = () => {
-  const count = useSelector((state) => state).businesses.value;
-  const users = useSelector((state) => state).businesses.businesses;
+  const businesses = useSelector((state) => state).businesses.businesses
+    .businesses;
+  const status = useSelector((state) => state).businesses.status;
 
-  const state = useSelector(state => state);
+  const isLoading = status === "loading";
 
   const [t, i18n] = useTranslation("home");
 
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(getUsers());
+    dispatch(getBusinesses());
   }, []);
+
+  const onDeleteBusiness = (businessId) => {
+    dispatch(deleteBusiness(businessId)).then(() => {
+      dispatch(getBusinesses()).then(() => dispatch(onCloseModalBox()));
+    });
+  };
+
+  const [editData, setEditData] = useState(null);
+
+  const onUpdateEditData = (data) => {
+    setEditData(data);
+  };
+
+  const findEditData = (selectedItem) => {
+    const find = businesses.find((item) => item.name === selectedItem);
+    onUpdateEditData(find);
+    onOpenModal();
+  };
+
+  const onOpenModal = () => {
+    dispatch(setModalType("ADD_EDIT_BUSINESS_MODAL"));
+  };
+
+  const history = useHistory();
+
+  const onPushToBusinessData = (businessId) => {
+    history.push(`/business/${businessId}`);
+  };
+
+  const [selectedId, setSelectedId] = useState({ businessId: "", name: "" });
+
+  const onOpenWarning = (businessId, name) => {
+    setSelectedId({ businessId, name });
+    dispatch(setModalType("WARNING_MODAL"));
+  };
 
   return (
     <>
-    <AddEditBusiness />
+      <AddEditBusiness
+        editData={editData}
+        onUpdateEditData={onUpdateEditData}
+      />
+      <WarningModal
+        modalTitle={`Are you sure to delete ${selectedId.name}?`}
+        callToAction={() => onDeleteBusiness(selectedId.businessId)}
+      />
       <LayoutBasePage>
         <HeaderContentPage
           title={t("home.businesses")}
           buttonName={t("home.createbusiness")}
-          buttonAction={() => dispatch(setModalType('ADD_EDIT_BUSINESS_MODAL'))}
+          buttonAction={() => onOpenModal()}
         />
-        <BusinessListItem firstColumn="Louis Vuitton" />
-        {/* {
-        users.map(user => (
-          <BusinessListItem key={user.id} firstColumn={user.name} secondColumn={user.username} />
-
-        ))
-      } */}
+        {isLoading && <Spinner />}
+        {!isLoading && (
+          <>
+            {businesses?.map(({ businessId, name }) => (
+              <BusinessListItem
+                key={businessId}
+                firstColumn={name}
+                deleteAction={() => onOpenWarning(businessId, name)}
+                editAction={() => findEditData(name)}
+                onClick={() => onPushToBusinessData(businessId)}
+              />
+            ))}
+          </>
+        )}
       </LayoutBasePage>
     </>
   );
