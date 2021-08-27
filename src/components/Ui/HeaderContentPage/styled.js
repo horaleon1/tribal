@@ -18,6 +18,10 @@ export const Wrapper = styled.div`
 `;
 export const LeftWrapper = styled.div`
   width: 100%;
+  display: flex;
+`;
+export const ButtonUpdate = styled.button`
+  margin-left: 1em;
 `;
 export const Title = styled.h3`
   color: ${theme.black};

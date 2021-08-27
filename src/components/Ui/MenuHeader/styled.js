@@ -9,9 +9,9 @@ export const Wrapper = styled.div`
   justify-content: space-between;
   align-items: center;
   width: 100%;
-  padding: 0 3.5em 0 1em;
+  padding: 0 0.5em 0 1em;
   z-index: 9;
-  position:relative;
+  position: relative;
   @media ${media.tablet} {
     width: auto;
     justify-content: space-around;
@@ -33,4 +33,9 @@ export const ButtonPill = styled.button`
 `;
 export const PillWrapper = styled.div`
   margin-right: 0.5em;
+`;
+export const IconWrapper = styled.div`
+  @media ${media.tablet} {
+    display: none;
+  }
 `;

@@ -69,7 +69,7 @@ const Home = () => {
         onUpdateEditData={onUpdateEditData}
       />
       <WarningModal
-        modalTitle={`Are you sure to delete ${selectedId.name}?`}
+        modalTitle={`${t("home.warningModalDelete")} ${selectedId.name}?`}
         callToAction={() => onDeleteBusiness(selectedId.businessId)}
       />
       <LayoutBasePage>

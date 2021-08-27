@@ -10,7 +10,7 @@ export const Wrapper = styled.div`
   display: flex;
   align-items: center;
   position: absolute;
-  right: 0.5em;
+  right: 5.5em;
   top: 0.5em;
   z-index: 10;
   @media ${media.tablet} {

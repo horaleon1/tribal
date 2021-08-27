@@ -1,6 +1,7 @@
-import React from "react";
+import { useHistory } from "react-router";
 import {
   ButtonIcon,
+  ButtonUpdate,
   ButtonWrapper,
   IconWrapper,
   LeftWrapper,
@@ -14,6 +15,8 @@ import Squares from "../../SVG/Squares";
 import { theme } from "../../../config/colors";
 import { useSelector, useDispatch } from "react-redux";
 import { toggleLayout } from "../../../reducers/ui";
+import Update from "../../SVG/Update";
+import { getBusinesses } from "../../../reducers/businesses";
 
 const HeaderContentPage = ({
   title = "",
@@ -21,9 +24,13 @@ const HeaderContentPage = ({
   buttonName = "",
   buttonAction = () => false,
 }) => {
+  // Redux state
   const hasSquareLayout = useSelector((state) => state).ui.hasSquaresLayout;
   const dispatch = useDispatch();
-
+  // Router
+  const history = useHistory();
+  const location = history.location.pathname;
+  const isHome = location === "/";
   return (
     <Wrapper>
       <LeftWrapper>
@@ -31,6 +38,11 @@ const HeaderContentPage = ({
       </LeftWrapper>
       <RightWrapper>
         <IconWrapper>
+          {isHome && (
+            <ButtonUpdate onClick={() => dispatch(getBusinesses())}>
+              <Update />
+            </ButtonUpdate>
+          )}
           {hasIcon && (
             <ButtonIcon onClick={() => dispatch(toggleLayout())}>
               {hasSquareLayout && (

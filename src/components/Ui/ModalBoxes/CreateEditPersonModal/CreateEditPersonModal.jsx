@@ -13,8 +13,7 @@ import {
   Wrapper,
 } from "../styled";
 import { Formik, Form } from "formik";
-import { useTranslation } from "react-i18next";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { onCloseModalBox } from "../../../../reducers/ui";
 import { addPerson, getPersons } from "../../../../reducers/persons";
 import Calendar from "react-calendar";

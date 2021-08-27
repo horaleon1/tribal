@@ -3,6 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
   hasSquaresLayout: true,
   modalType: "",
+  isMobileMenuOpen: false,
 };
 
 export const ui = createSlice({
@@ -18,9 +19,17 @@ export const ui = createSlice({
     onCloseModalBox: (state) => {
       state.modalType = "";
     },
+    onToogleMobileMenu: (state) => {
+      state.isMobileMenuOpen = !state.isMobileMenuOpen;
+    },
   },
 });
 
-export const { toggleLayout, setModalType, onCloseModalBox } = ui.actions;
+export const {
+  toggleLayout,
+  setModalType,
+  onCloseModalBox,
+  onToogleMobileMenu,
+} = ui.actions;
 
 export default ui.reducer;

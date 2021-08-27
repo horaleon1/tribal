@@ -22,13 +22,11 @@ export const Wrapper = styled.div`
   }
 `;
 
-export const BodyWrapper = styled.div`
+export const Body = styled.div`
   display: none;
   @media ${media.tablet} {
     width: 100%;
     display: flex;
-    flex-direction: column;
-    margin-top: 83px;
     flex: 1;
   }
 `;

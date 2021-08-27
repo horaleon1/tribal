@@ -6,6 +6,7 @@
             "addBusiness": "Agregar negocio",
             "editBusiness": "Editar negocio"
         },
-        "withoutBusinesses": "No hay negocios registrados"
+        "withoutBusinesses": "No hay negocios registrados",
+        "warningModalDelete": "¿Estás seguro de que quieres eliminar"
     }
 }

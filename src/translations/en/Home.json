@@ -6,6 +6,7 @@
             "addBusiness": "Add Business",
             "editBusiness": "Edit Business"
         },
+        "warningModalDelete": "Are you sure you want to delete",
         "withoutBusinesses": "There are no registered businesses"
     }
 }

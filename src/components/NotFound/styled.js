@@ -6,12 +6,13 @@ import { Link } from "react-router-dom";
 import img from "../../images/not_found.png";
 
 export const Wrapper = styled.div`
-  height: 60%;
+  height: 90%;
   display: flex;
   flex-direction: column;
   align-items: center;
   margin: 0 1em;
   @media ${media.tablet} {
+    height: 60%;
     margin: 0em 1em;
   }
 `;

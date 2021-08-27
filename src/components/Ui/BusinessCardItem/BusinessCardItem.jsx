@@ -10,7 +10,7 @@ import {
   UpperWrapper,
   Wrapper,
 } from "./styled";
-import Pencil from "../../SVG/Pencil";
+// import Pencil from "../../SVG/Pencil";
 import Trash from "../../SVG/Trash";
 
 const BusinessCardItem = ({

@@ -1,23 +1,22 @@
-import { useState } from "react";
+import { useDispatch } from "react-redux";
 import ArrowDown from "../../SVG/ArrowDown";
-import FloatingMenu from "../FloatingMenu/FloatingMenu";
 import Pill from "../Pill/Pill";
-import { ButtonPill, Logo, PillWrapper, Wrapper } from "./styled";
+import { ButtonPill, IconWrapper, Logo, PillWrapper, Wrapper } from "./styled";
+import { onToogleMobileMenu } from "../../../reducers/ui";
 
 const MenuHeader = () => {
-  const [isMenuOpen, handleMenu] = useState(false);
-  const toggleMenu = () => handleMenu((prevState) => !prevState);
-  const transformProperty = isMenuOpen ? "rotate(270)" : "rotate(90)";
+  const dispatch = useDispatch();
   return (
     <Wrapper>
       <Logo to="/" />
-      <ButtonPill onClick={toggleMenu}>
+      <ButtonPill onClick={() => dispatch(onToogleMobileMenu())}>
         <PillWrapper>
           <Pill initials="HL" />
         </PillWrapper>
-        <ArrowDown transform={transformProperty} />
+        <IconWrapper>
+          <ArrowDown />
+        </IconWrapper>
       </ButtonPill>
-      {isMenuOpen && <FloatingMenu />}
     </Wrapper>
   );
 };

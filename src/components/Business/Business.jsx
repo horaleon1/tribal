@@ -66,7 +66,7 @@ const Businesses = () => {
     <>
       <CreateEditPersonModal businessId={businessId} />
       <WarningModal
-        modalTitle={`Are you sure to delete ${selectedPerson.name}`}
+        modalTitle={`${t("business.warningModalDelete")} ${selectedPerson.name}?`}
         callToAction={() => onDeletePerson(selectedPerson.personId, businessId)}
       />
       <LayoutBasePage>

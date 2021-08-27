@@ -1,14 +1,8 @@
 import { useTranslation } from "react-i18next";
-import { BodyWrapper, FooterWrapper, Wrapper } from "./styled";
-import Link from "../Ui/Link/Link";
-import Bank from "../SVG/Bank";
-import Bell from "../SVG/Bell";
-import DebitCard from "../SVG/DebitCard";
-import DollarSign from "../SVG/DollarSign";
-import Squares from "../SVG/Squares";
-import SidebarItem from "../Ui/SidebarItem/SidebarItem";
-import User from "../SVG/User";
+import { Body, FooterWrapper, Wrapper } from "./styled";
 import MenuHeader from "../Ui/MenuHeader/MenuHeader";
+import MenuBody from "../Ui/MenuBody/MenuBody";
+import Link from "../Ui/Link/Link";
 
 const Sidebar = () => {
   // Translation
@@ -17,30 +11,9 @@ const Sidebar = () => {
   return (
     <Wrapper>
       <MenuHeader />
-      <BodyWrapper>
-        <SidebarItem
-          icon={<Squares />}
-          name={t("sidebar.overview")}
-          to="/overview"
-        />
-        <SidebarItem icon={<Bank />} name="Tribal Pay" to="/tribalPay" />
-        <SidebarItem
-          icon={<DebitCard />}
-          name="Tribal Credit"
-          to="/tribalcredit"
-        />
-        <SidebarItem
-          icon={<DollarSign />}
-          name={t("sidebar.payments")}
-          to="/payments"
-        />
-        <SidebarItem
-          icon={<Bell />}
-          name={t("sidebar.notifications")}
-          to="/notifications"
-        />
-        <SidebarItem icon={<User />} name={t("sidebar.users")} to="/users" />
-      </BodyWrapper>
+      <Body>
+        <MenuBody />
+      </Body>
       <FooterWrapper>
         <Link name="Legal" to="/legal" />
         <Link name="FAQ" to="/faq" />
