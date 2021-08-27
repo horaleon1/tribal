@@ -2,6 +2,7 @@ import React from "react";
 import {
   ButtonIcon,
   ButtonWrapper,
+  IconWrapper,
   LeftWrapper,
   RightWrapper,
   Title,
@@ -22,23 +23,30 @@ const HeaderContentPage = ({
 }) => {
   const hasSquareLayout = useSelector((state) => state).ui.hasSquaresLayout;
   const dispatch = useDispatch();
-  
+
   return (
     <Wrapper>
       <LeftWrapper>
         <Title>{title}</Title>
       </LeftWrapper>
       <RightWrapper>
-        {hasIcon && (
-          <ButtonIcon onClick={() => dispatch(toggleLayout())}>
-            {hasSquareLayout && (
-              <Squares color={theme.black} width="24" height="24" />
-            )}
-            {!hasSquareLayout && <List />}
-          </ButtonIcon>
-        )}
+        <IconWrapper>
+          {hasIcon && (
+            <ButtonIcon onClick={() => dispatch(toggleLayout())}>
+              {hasSquareLayout && (
+                <Squares color={theme.black} width="24" height="24" />
+              )}
+              {!hasSquareLayout && <List />}
+            </ButtonIcon>
+          )}
+        </IconWrapper>
         <ButtonWrapper>
-          <Button name={buttonName} label="primary" onClick={buttonAction} />
+          <Button
+            name={buttonName}
+            label="primary"
+            onClick={buttonAction}
+            wdt="155px"
+          />
         </ButtonWrapper>
       </RightWrapper>
     </Wrapper>

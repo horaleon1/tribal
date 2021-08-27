@@ -1,5 +1,11 @@
 import { useRef, useEffect, useCallback } from "react";
-import { ButtonsWrapper, FieldWrapper, Title, Wrapper } from "../styled";
+import {
+  ButtonWrapper,
+  ButtonsWrapper,
+  FieldWrapper,
+  Title,
+  Wrapper,
+} from "../styled";
 import { Formik, Form } from "formik";
 import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
@@ -20,6 +26,8 @@ const validationSchema = Yup.object({
 });
 
 const AddEditBusiness = ({ editData, onUpdateEditData }) => {
+  //Translation
+  // eslint-disable-next-line
   const [t, i18n] = useTranslation("home");
 
   const modalTitle = !editData
@@ -98,19 +106,20 @@ const AddEditBusiness = ({ editData, onUpdateEditData }) => {
                   />
                 </FieldWrapper>
                 <ButtonsWrapper>
-                  <Button
-                    label="secondary"
-                    name="Cancel"
-                    wdt="95px"
-                    onClick={() => onCancelForm()}
-                  />
-
-                  <Button
-                    disabled={isSubmitting}
-                    label="primary"
-                    name="Create"
-                    wdt="95px"
-                  />
+                  <ButtonWrapper>
+                    <Button
+                      label="secondary"
+                      name="Cancel"
+                      onClick={() => onCancelForm()}
+                    />
+                  </ButtonWrapper>
+                  <ButtonWrapper>
+                    <Button
+                      disabled={isSubmitting}
+                      label="primary"
+                      name="Create"
+                    />
+                  </ButtonWrapper>
                 </ButtonsWrapper>
               </Form>
             );

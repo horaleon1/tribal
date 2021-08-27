@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import { media } from "../../../config/mediaQueries";
 import { theme } from "../../../config/colors";
 import { fontSizes } from "../../../config/font";
@@ -12,8 +12,14 @@ export const Wrapper = styled.div`
   display: flex;
   justify-content: center;
   flex-direction: column;
+  overflow: hidden;
+  margin-bottom: 1em;
   @media ${media.tablet} {
-    max-width: 300px;
+    margin-right: 1em;
+    width: calc(50% - 1em);
+  }
+  @media ${media.desktop2} {
+    width: calc(33.33% - 1em);
   }
 `;
 
@@ -25,13 +31,12 @@ export const UpperWrapper = styled.div`
   justify-content: space-between;
   border-bottom: 1px solid ${theme.border};
 `;
-
 export const LeftWrapper = styled.div`
-  width: 70%;
+  width: 90%;
 `;
 
 export const RightWrapper = styled.div`
-  width: 30%;
+  width: 10%;
 `;
 
 export const InferiorWrapper = styled.div`
@@ -42,16 +47,25 @@ export const InferiorWrapper = styled.div`
 `;
 export const Button = styled.button``;
 
+export const ellipsis = css`
+  width: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+`;
+
 export const Title = styled.p`
   margin-bottom: 0.5em;
   color: ${theme.black};
   font-size: ${fontSizes.paragraph};
+  ${ellipsis}
 `;
 
 export const Subtitle = styled.p`
   margin-bottom: 0.5em;
   color: ${theme.black};
   font-size: ${fontSizes.caption};
+  ${ellipsis}
 `;
 
 export const SubtitleGrey = styled.p`

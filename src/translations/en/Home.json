@@ -5,6 +5,7 @@
         "modalBox": {
             "addBusiness": "Add Business",
             "editBusiness": "Edit Business"
-        }
+        },
+        "withoutBusinesses": "There are no registered businesses"
     }
 }

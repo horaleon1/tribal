@@ -21,8 +21,8 @@ export const Loader = styled.div`
   height: 80px;
   border-radius: 50%;
   border: 7px solid transparent;
-  border-top: 7px solid #c41e3a;
-  border-bottom: 7px solid #c41e3a;
+  border-top: 7px solid #ede451;
+  border-bottom: 7px solid #ede451;
   animation: ${rotateOpp} 1.8s linear infinite;
   &:after {
     content: "";
@@ -31,8 +31,8 @@ export const Loader = styled.div`
     height: 50px;
     border-radius: 50%;
     border: 7px solid transparent;
-    border-left: 7px solid #c9cc3f;
-    border-right: 7px solid #c9cc3f;
+    border-left: 7px solid #89e4c1;
+    border-right: 7px solid #89e4c1;
     animation: ${rotate} 0.9s linear infinite;
   }
 `;

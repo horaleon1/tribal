@@ -4,7 +4,7 @@ import { media } from "../../../config/mediaQueries";
 
 export const Overlay = styled.div`
   position: absolute;
-  z-index: 9;
+  z-index: 12;
   top: 0;
   right: 0;
   bottom: 0;
@@ -21,9 +21,11 @@ export const Wrapper = styled.div`
   width: 100%;
   padding: 0 24px;
   overflow-y: auto;
+  position: relative;
   @media ${media.tablet} {
     width: 450px;
-    min-height: 170px;
+    height: 100%;
+    min-height: 160px;
     height: auto;
     max-height: 90%;
     border-radius: 29px;

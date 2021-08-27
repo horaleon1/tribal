@@ -1,25 +1,29 @@
 import { useState } from "react";
 import {
+  ButtonWrapper,
   ButtonsWrapper,
+  CalendarError,
   CalendarIconWrapper,
   FakeInput,
+  FakeInputContent,
   FakeLabel,
   FieldWrapper,
+  ReactCalendarStyles,
   Title,
   Wrapper,
 } from "../styled";
 import { Formik, Form } from "formik";
 import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
-import Calendar from "react-calendar";
 import { onCloseModalBox } from "../../../../reducers/ui";
+import { addPerson, getPersons } from "../../../../reducers/persons";
+import Calendar from "react-calendar";
 import Modal from "../../Modal/Modal";
 import Button from "../../Button/Button";
 import Field from "../../Forms/Field/Field";
 import "react-calendar/dist/Calendar.css";
 import dayjs from "dayjs";
 import * as Yup from "yup";
-import { addPerson, getPersons } from "../../../../reducers/persons";
 import IconCalendar from "../../../SVG/Calendar";
 
 const validationSchema = Yup.object({
@@ -63,8 +67,32 @@ const CreateEditPersonModal = ({ businessId }) => {
       .then(() => dispatch(getPersons(businessId)))
       .then(() => dispatch(onCloseModalBox()));
   };
+  const [calendarValue, setCalendarValue] = useState("12/09/2013");
   const [isCalendarOpen, setCalendarOpen] = useState(false);
   const toggleCalendar = () => setCalendarOpen((prevState) => !prevState);
+
+  const formatPhone = (value = "") => {
+    if (!value) return value;
+    // Clean string
+    const onlyNums = value.replace(/[^\d]/g, "");
+    if (onlyNums.length <= 11) {
+      return (
+        "(" +
+        onlyNums.slice(0, 3) +
+        ")" +
+        " " +
+        onlyNums.slice(3, 6) +
+        "-" +
+        onlyNums.slice(6, 10)
+      );
+    }
+    return onlyNums;
+  };
+
+  const handleCalendar = (e) => {
+    toggleCalendar();
+    setCalendarValue(dayjs(e).format("DD/MM/YYYY"));
+  };
 
   return (
     <Modal modalType="CREATE_EDIT_PERSON_MODAL">
@@ -75,7 +103,7 @@ const CreateEditPersonModal = ({ businessId }) => {
           validationSchema={validationSchema}
           onSubmit={onSubmit}
         >
-          {({ isSubmitting, errors, setFieldValue }) => {
+          {({ isSubmitting, errors, setFieldValue, values, handleBlur }) => {
             const { name = "", email, phone, role, join_date } = errors;
             return (
               <Form>
@@ -114,42 +142,57 @@ const CreateEditPersonModal = ({ businessId }) => {
                     id="phone"
                     name="phone"
                     label="Phone"
-                    placeholder="(307) 555 -0133"
+                    placeholder="(307) 555-0133"
                     errors={phone}
                     type="text"
+                    onBlur={(e) => {
+                      const formatted = formatPhone(values["phone"]);
+                      setFieldValue("phone", formatted);
+                      handleBlur(e);
+                    }}
                   />
                 </FieldWrapper>
                 <FieldWrapper>
                   <FakeLabel>Join Date</FakeLabel>
-                  <FakeInput onClick={toggleCalendar} role="button">
+                  <FakeInput
+                    onClick={toggleCalendar}
+                    role="button"
+                    errors={join_date}
+                  >
+                    <FakeInputContent>{calendarValue}</FakeInputContent>
                     <CalendarIconWrapper>
                       <IconCalendar />
                     </CalendarIconWrapper>
                   </FakeInput>
                   {isCalendarOpen && (
                     <>
+                      <ReactCalendarStyles />
                       <Calendar
                         // selected={(field.value && new Date(field.value)) || null}
-                        onChange={(e) => setFieldValue("join_date", e)}
+                        onChange={(e) => {
+                          setFieldValue("join_date", e);
+                          handleCalendar(e);
+                        }}
                       />
-                      {join_date && <p>{join_date}</p>}
                     </>
                   )}
+                  {join_date && <CalendarError>{join_date}</CalendarError>}
                 </FieldWrapper>
                 <ButtonsWrapper>
-                  <Button
-                    label="secondary"
-                    name="Cancel"
-                    wdt="95px"
-                    onClick={() => onCancelForm()}
-                  />
-
-                  <Button
-                    disabled={isSubmitting}
-                    label="primary"
-                    name="Create"
-                    wdt="95px"
-                  />
+                  <ButtonWrapper>
+                    <Button
+                      label="secondary"
+                      name="Cancel"
+                      onClick={() => onCancelForm()}
+                    />
+                  </ButtonWrapper>
+                  <ButtonWrapper>
+                    <Button
+                      disabled={isSubmitting}
+                      label="primary"
+                      name="Create"
+                    />
+                  </ButtonWrapper>
                 </ButtonsWrapper>
               </Form>
             );

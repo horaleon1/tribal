@@ -1,5 +1,4 @@
-import React from "react";
-import { MxFlag, UsFlag, ItemWrapper, Wrapper } from "./styled";
+import { MxFlag, Title, UsFlag, Wrapper } from "./styled";
 import { useTranslation } from "react-i18next";
 
 const TranslationSelect = () => {
@@ -15,6 +14,10 @@ const TranslationSelect = () => {
       {getLanguage === "es" && (
         <UsFlag onClick={() => i18n.changeLanguage("en")} />
       )}
+      <Title>
+        {getLanguage === "en" && "English"}
+        {getLanguage === "es" && "Español"}
+      </Title>
     </Wrapper>
   );
 };

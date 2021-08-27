@@ -1,5 +1,6 @@
 {
     "business": {
-        "createPerson": "Create person"
+        "createPerson": "Create person",
+        "withoutPersons": "The business does not have any registered person."
     }
 }

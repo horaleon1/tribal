@@ -1,5 +1,6 @@
 {
     "business": {
-        "createPerson": "Crear persona"
+        "createPerson": "Crear persona",
+        "withoutPersons": "La empresa no cuenta con ninguna persona registrada."
     }
 }

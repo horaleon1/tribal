@@ -1,4 +1,4 @@
-import React from "react";
+import { useHistory } from "react-router";
 import {
   Button,
   LinkWrapper,
@@ -17,6 +17,10 @@ const BusinessListItem = ({
   editAction,
   onClick = () => false,
 }) => {
+  const history = useHistory();
+
+  // Hide Pencil Icon Temporary (unsupported funcionality)
+  const isBusinessPath = history.location.pathname.includes("/business/");
   return (
     <Wrapper>
       <LinkWrapper onClick={() => onClick()} role="button">
@@ -26,9 +30,11 @@ const BusinessListItem = ({
         )}
       </LinkWrapper>
       <ToolsWrapper>
-        <Button onClick={() => editAction()}>
-          <Pencil />
-        </Button>
+        {!isBusinessPath && (
+          <Button onClick={() => editAction()}>
+            <Pencil />
+          </Button>
+        )}
         <Button onClick={() => deleteAction()}>
           <Trash />
         </Button>

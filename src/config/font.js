@@ -6,4 +6,5 @@ export const fontSizes = {
   subtitle2: "1.125rem",
   subtitle: "1.375rem",
   title: "1.563rem",
+  mega: "2em",
 };

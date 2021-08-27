@@ -1,6 +1,5 @@
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-
-import Businesses from "./components/Business/Business";
+import Business from "./components/Business/Business";
 import Home from "./components/Home/Home";
 import LayoutSidebar from "./components/Layouts/LayoutSidebar/LayoutSidebar";
 import NotFound from "./components/NotFound/NotFound";
@@ -13,7 +12,7 @@ function App() {
       <LayoutSidebar>
         <Switch>
           <Route exact path="/" component={Home} />
-          <Route path="/business/:businessId" component={Businesses} />
+          <Route path="/business/:businessId" component={Business} />
           <Route component={NotFound} />
         </Switch>
       </LayoutSidebar>

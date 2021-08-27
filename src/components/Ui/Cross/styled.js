@@ -1,19 +1,23 @@
 import styled from "styled-components";
 import { theme } from "../../../config/colors";
 
-export const Icon = styled.span`
+export const Icon = styled.button`
+  display: flex;
+  justify-content: center;
+  align-items: center;
   position: absolute;
-  right: 1em;
+  right: 2.2em;
   top: 1em;
-  width: 14px;
-  height: 14px;
+  width: 38px;
+  height: 38px;
   opacity: 0.3;
+  cursor: pointer;
+  z-index:12;
   &:after,
-  &before {
+  &:before {
     position: absolute;
-    left: 15px;
     content: " ";
-    height: 14px;
+    height: 16px;
     width: 2px;
     background-color: ${theme.black};
   }
@@ -22,5 +26,8 @@ export const Icon = styled.span`
   }
   &:before {
     transform: rotate(45deg);
+  }
+  &:hover {
+    opacity: 1;
   }
 `;

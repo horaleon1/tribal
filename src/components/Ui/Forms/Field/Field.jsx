@@ -8,6 +8,7 @@ const Field = ({
   type = "text",
   label = "",
   errors = "",
+  ...rest
 }) => {
   return (
     <Wrapper>
@@ -18,6 +19,7 @@ const Field = ({
         placeholder={placeholder}
         type={type}
         errors={errors}
+        {...rest}
       />
       {errors && <Error>{errors}</Error>}
     </Wrapper>
