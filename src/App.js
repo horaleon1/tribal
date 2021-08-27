@@ -1,24 +1,24 @@
-import logo from './logo.svg';
-import './App.css';
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import Business from "./components/Business/Business";
+import Home from "./components/Home/Home";
+import LayoutSidebar from "./components/Layouts/LayoutSidebar/LayoutSidebar";
+import NotFound from "./components/NotFound/NotFound";
+import ScrollToTop from "./utils/ScrollToTop";
+import FloatingMenu from "./components/Ui/FloatingMenu/FloatingMenu";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <ScrollToTop />
+      <FloatingMenu />
+      <LayoutSidebar>
+        <Switch>
+          <Route exact path="/" component={Home} />
+          <Route path="/business/:businessId" component={Business} />
+          <Route component={NotFound} />
+        </Switch>
+      </LayoutSidebar>
+    </Router>
   );
 }
 

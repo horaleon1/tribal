@@ -1,0 +1,7 @@
+{
+    "business": {
+        "createPerson": "Crear persona",
+        "withoutPersons": "La empresa no cuenta con ninguna persona registrada.",
+        "warningModalDelete": "¿Estás seguro de que quieres eliminar"
+    }
+}

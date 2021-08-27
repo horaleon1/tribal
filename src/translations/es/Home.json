@@ -1,0 +1,12 @@
+{
+    "home": {
+        "businesses": "Negocios",
+        "createbusiness": "Agregar negocio",
+        "modalbox": {
+            "addBusiness": "Agregar negocio",
+            "editBusiness": "Editar negocio"
+        },
+        "withoutBusinesses": "No hay negocios registrados",
+        "warningModalDelete": "¿Estás seguro de que quieres eliminar"
+    }
+}

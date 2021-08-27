@@ -1,0 +1,9 @@
+{
+    "sidebar": {
+        "overview": "Inicio",
+        "payments": "Pagos",
+        "notifications": "Notificaciones",
+        "users": "Usuarios",
+        "support": "Ayuda"
+    }
+}

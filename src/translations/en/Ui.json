@@ -1,0 +1,7 @@
+{
+    "ui": {
+        "notFoundTitle": "Oops!",
+        "notFound": "We can't seem to find the page you're looking for.",
+        "notFoundButton": "Go back home"
+    }
+}
