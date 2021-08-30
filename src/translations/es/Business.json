@@ -2,6 +2,10 @@
     "business": {
         "createPerson": "Crear persona",
         "withoutPersons": "La empresa no cuenta con ninguna persona registrada.",
-        "warningModalDelete": "¿Estás seguro de que quieres eliminar"
+        "warningModalDelete": "¿Estás seguro de que quieres eliminar",
+        "editPerson": "Editar persona",
+        "buttonCreate": "Crear",
+        "buttonEdit": "Editar",
+        "buttonCancel": "Cancelar"
     }
 }

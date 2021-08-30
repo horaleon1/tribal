@@ -12,7 +12,7 @@ import BusinessListItem from "../Ui/BusinessListItem/BusinessListItem";
 import Spinner from "../Ui/Spinner/Spinner";
 import WarningModal from "../Ui/ModalBoxes/WarningModal/WarningModal";
 import CreateEditPersonModal from "../Ui/ModalBoxes/CreateEditPersonModal/CreateEditPersonModal";
-import { WrapperListCard, WithoutPersons } from './styled';
+import { WrapperListCard, WithoutPersons } from "./styled";
 
 const Businesses = () => {
   // Translation
@@ -61,12 +61,29 @@ const Businesses = () => {
       dispatch(getPersons(businessId))
     );
   }, []);
+  const [editData, setEditData] = useState(null);
+  // Obtain all the necessary information to be able to update data
+  const findEditData = (selectedItem) => {
+    const find = persons.find((item) => item.name === selectedItem);
+    onUpdateEditData(find);
+    onOpenModal();
+  };
+  // Used in modal to clear local state when modal closes
+  const onUpdateEditData = (data) => {
+    setEditData(data);
+  };
 
   return (
     <>
-      <CreateEditPersonModal businessId={businessId} />
+      <CreateEditPersonModal
+        businessId={businessId}
+        editData={editData}
+        onUpdateEditData={onUpdateEditData}
+      />
       <WarningModal
-        modalTitle={`${t("business.warningModalDelete")} ${selectedPerson.name}?`}
+        modalTitle={`${t("business.warningModalDelete")} ${
+          selectedPerson.name
+        }?`}
         callToAction={() => onDeletePerson(selectedPerson.personId, businessId)}
       />
       <LayoutBasePage>
@@ -78,10 +95,9 @@ const Businesses = () => {
         />
         {isLoading && <Spinner />}
 
-        {
-          !isLoading && !persons.length &&
+        {!isLoading && !persons.length && (
           <WithoutPersons>{t("business.withoutPersons")}</WithoutPersons>
-        }
+        )}
 
         {!hasSquareLayout && !isLoading && (
           <WrapperListCard>
@@ -93,6 +109,7 @@ const Businesses = () => {
                 telephone={phone}
                 email={email}
                 deleteAction={() => onOpenWarning(personId, name)}
+                editAction={() => findEditData(name)}
               />
             ))}
           </WrapperListCard>
@@ -105,6 +122,7 @@ const Businesses = () => {
                 firstColumn={name}
                 secondColumn={role}
                 deleteAction={() => onOpenWarning(personId, name)}
+                editAction={() => findEditData(name)}
               />
             ))}
           </>
