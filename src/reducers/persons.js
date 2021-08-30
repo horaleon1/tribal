@@ -2,7 +2,7 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   persons: [],
-  status: ''
+  status: "",
 };
 
 export const getPersons = createAsyncThunk(
@@ -37,17 +37,34 @@ export const deletePerson = createAsyncThunk(
 export const addPerson = createAsyncThunk(
   "businesses/addPerson",
   async (info) => {
-    const response = await fetch(`/prod/business/${info.businessId}/persons`, {
+    const { businessId, data } = info;
+    const response = await fetch(`/prod/business/${businessId}/persons`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
         "x-api-key": `${process.env.REACT_APP_API_KEY}`,
       },
-      body: JSON.stringify(info.data),
+      body: JSON.stringify(data),
     });
     return response.data;
   }
 );
+
+export const updatePerson = createAsyncThunk("editPersion", async (info) => {
+  const { businessId, personId, data } = info;
+  const response = await fetch(
+    `/prod/business/${businessId}/persons/${personId}`,
+    {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        "x-api-key": `${process.env.REACT_APP_API_KEY}`,
+      },
+      body: JSON.stringify(data),
+    }
+  );
+  return response.data;
+});
 
 export const persons = createSlice({
   name: "persons",
@@ -81,6 +98,16 @@ export const persons = createSlice({
       state.status = "success";
     },
     [addPerson.rejected]: (state, action) => {
+      state.status = "rejected";
+    },
+
+    [updatePerson.pending]: (state, action) => {
+      state.status = "loading";
+    },
+    [updatePerson.fulfilled]: (state, action) => {
+      state.status = "success";
+    },
+    [updatePerson.rejected]: (state, action) => {
       state.status = "rejected";
     },
   },

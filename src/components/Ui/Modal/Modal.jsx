@@ -5,17 +5,31 @@ import Cross from "../Cross/Cross";
 import { useSelector, useDispatch } from "react-redux";
 import { onCloseModalBox } from "../../../reducers/ui";
 
-const Modal = ({ modalType = "", hasCross = true, children }) => {
-  // Rredux stet
+const Modal = ({
+  modalType = "",
+  hasCross = true,
+  children,
+  closeAction = false,
+}) => {
+  // Redux stet
   const currentModalType = useSelector((state) => state).ui.modalType;
   const dispatch = useDispatch();
+
+  const onProcessCloseAction = () => {
+    if (closeAction) {
+      dispatch(onCloseModalBox());
+      closeAction();
+    } else {
+      dispatch(onCloseModalBox());
+    }
+  };
 
   // Close modalbox when click outside
   const ref = useRef(null);
   const onClickOutside = useCallback(
     (e) => {
       if (ref.current && !ref.current.contains(e.target)) {
-        dispatch(onCloseModalBox());
+        onProcessCloseAction();
       }
     },
     [currentModalType]
@@ -35,7 +49,7 @@ const Modal = ({ modalType = "", hasCross = true, children }) => {
   return ReactDom.createPortal(
     <Overlay>
       <Wrapper ref={ref}>
-        {hasCross && <Cross onClick={() => dispatch(onCloseModalBox())} />}
+        {hasCross && <Cross onClick={() => onProcessCloseAction()} />}
         {children}
       </Wrapper>
     </Overlay>,

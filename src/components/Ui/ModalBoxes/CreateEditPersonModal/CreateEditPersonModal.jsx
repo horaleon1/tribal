@@ -12,10 +12,15 @@ import {
   Title,
   Wrapper,
 } from "../styled";
+import { useTranslation } from "react-i18next";
 import { Formik, Form } from "formik";
 import { useDispatch } from "react-redux";
 import { onCloseModalBox } from "../../../../reducers/ui";
-import { addPerson, getPersons } from "../../../../reducers/persons";
+import {
+  addPerson,
+  getPersons,
+  updatePerson,
+} from "../../../../reducers/persons";
 import Calendar from "react-calendar";
 import Modal from "../../Modal/Modal";
 import Button from "../../Button/Button";
@@ -24,6 +29,7 @@ import "react-calendar/dist/Calendar.css";
 import dayjs from "dayjs";
 import * as Yup from "yup";
 import IconCalendar from "../../../SVG/Calendar";
+import { adaptInitialValues } from "./initialValues";
 
 const validationSchema = Yup.object({
   name: Yup.string().required("Campo obligatorio"),
@@ -36,20 +42,22 @@ const validationSchema = Yup.object({
   join_date: Yup.string().required("Campo obligatorio"),
 });
 
-const initialValues = {
-  name: "",
-  email: "",
-  phone: "",
-  role: "",
-  join_date: "",
-};
-
-const CreateEditPersonModal = ({ businessId }) => {
+const CreateEditPersonModal = ({ businessId, editData, onUpdateEditData }) => {
   const dispatch = useDispatch();
+  //Translation
+  // eslint-disable-next-line
+  const [t, i18n] = useTranslation("business");
 
-  const modalTitle = "Crear persona";
+  const modalTitle = !editData
+    ? t("business.createPerson")
+    : t("business.editPerson");
+
+  const modalButton = !editData
+    ? t("business.buttonCreate")
+    : t("business.buttonEdit");
 
   const onCancelForm = () => {
+    onUpdateEditData(null);
     dispatch(onCloseModalBox());
   };
 
@@ -62,11 +70,21 @@ const CreateEditPersonModal = ({ businessId }) => {
       data: values,
       businessId,
     };
-    dispatch(addPerson(info))
-      .then(() => dispatch(getPersons(businessId)))
-      .then(() => dispatch(onCloseModalBox()));
+
+    if (editData) {
+      info.personId = editData.personId;
+      dispatch(updatePerson(info))
+        .then(() => dispatch(getPersons(businessId)))
+        .then(() => dispatch(onCloseModalBox()));
+    } else {
+      dispatch(addPerson(info))
+        .then(() => dispatch(getPersons(businessId)))
+        .then(() => dispatch(onCloseModalBox()));
+    }
   };
-  const [calendarValue, setCalendarValue] = useState("12/09/2013");
+
+  const initialValues = adaptInitialValues(editData);
+
   const [isCalendarOpen, setCalendarOpen] = useState(false);
   const toggleCalendar = () => setCalendarOpen((prevState) => !prevState);
 
@@ -90,11 +108,9 @@ const CreateEditPersonModal = ({ businessId }) => {
 
   const handleCalendar = (e) => {
     toggleCalendar();
-    setCalendarValue(dayjs(e).format("DD/MM/YYYY"));
   };
-
   return (
-    <Modal modalType="CREATE_EDIT_PERSON_MODAL">
+    <Modal modalType="CREATE_EDIT_PERSON_MODAL" closeAction={onCancelForm}>
       <Wrapper>
         <Title>{modalTitle}</Title>
         <Formik
@@ -110,7 +126,7 @@ const CreateEditPersonModal = ({ businessId }) => {
                   <Field
                     id="name"
                     name="name"
-                    label="Business Name"
+                    label="Name"
                     placeholder="John Ryan"
                     errors={name}
                     type="text"
@@ -158,7 +174,11 @@ const CreateEditPersonModal = ({ businessId }) => {
                     role="button"
                     errors={join_date}
                   >
-                    <FakeInputContent>{calendarValue}</FakeInputContent>
+                    <FakeInputContent>
+                      {values.join_date
+                        ? dayjs(values.join_date).format("DD/MM/YYYY")
+                        : "12/09/2013"}
+                    </FakeInputContent>
                     <CalendarIconWrapper>
                       <IconCalendar />
                     </CalendarIconWrapper>
@@ -167,7 +187,6 @@ const CreateEditPersonModal = ({ businessId }) => {
                     <>
                       <ReactCalendarStyles />
                       <Calendar
-                        // selected={(field.value && new Date(field.value)) || null}
                         onChange={(e) => {
                           setFieldValue("join_date", e);
                           handleCalendar(e);
@@ -181,7 +200,7 @@ const CreateEditPersonModal = ({ businessId }) => {
                   <ButtonWrapper>
                     <Button
                       label="secondary"
-                      name="Cancel"
+                      name={t("business.buttonCancel")}
                       onClick={() => onCancelForm()}
                     />
                   </ButtonWrapper>
@@ -189,7 +208,7 @@ const CreateEditPersonModal = ({ businessId }) => {
                     <Button
                       disabled={isSubmitting}
                       label="primary"
-                      name="Create"
+                      name={modalButton}
                     />
                   </ButtonWrapper>
                 </ButtonsWrapper>

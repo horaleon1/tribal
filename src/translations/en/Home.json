@@ -4,7 +4,10 @@
         "createbusiness": "Create business",
         "modalBox": {
             "addBusiness": "Add Business",
-            "editBusiness": "Edit Business"
+            "editBusiness": "Edit Business",
+            "buttonAddBusiness": "Add",
+            "buttonEditBusiness": "Edit",
+            "buttonCancel": "Cancel"
         },
         "warningModalDelete": "Are you sure you want to delete",
         "withoutBusinesses": "There are no registered businesses"

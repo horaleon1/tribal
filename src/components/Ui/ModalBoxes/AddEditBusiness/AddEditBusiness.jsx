@@ -34,6 +34,10 @@ const AddEditBusiness = ({ editData, onUpdateEditData }) => {
     ? t("home.modalBox.addBusiness")
     : t("home.modalBox.editBusiness");
 
+  const modalButton = !editData
+    ? t("home.modalBox.buttonAddBusiness")
+    : t("home.modalBox.buttonEditBusiness");
+
   const dispatch = useDispatch();
 
   const onSubmit = (values = "") => {
@@ -83,7 +87,7 @@ const AddEditBusiness = ({ editData, onUpdateEditData }) => {
   }, [currentModalType]);
 
   return (
-    <Modal modalType="ADD_EDIT_BUSINESS_MODAL">
+    <Modal modalType="ADD_EDIT_BUSINESS_MODAL" closeAction={onCancelForm}>
       <Wrapper ref={ref}>
         <Title>{modalTitle}</Title>
         <Formik
@@ -109,7 +113,7 @@ const AddEditBusiness = ({ editData, onUpdateEditData }) => {
                   <ButtonWrapper>
                     <Button
                       label="secondary"
-                      name="Cancel"
+                      name={t("home.modalBox.buttonCancel")}
                       onClick={() => onCancelForm()}
                     />
                   </ButtonWrapper>
@@ -117,7 +121,7 @@ const AddEditBusiness = ({ editData, onUpdateEditData }) => {
                     <Button
                       disabled={isSubmitting}
                       label="primary"
-                      name="Create"
+                      name={modalButton}
                     />
                   </ButtonWrapper>
                 </ButtonsWrapper>

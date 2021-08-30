@@ -10,7 +10,7 @@ import {
   UpperWrapper,
   Wrapper,
 } from "./styled";
-// import Pencil from "../../SVG/Pencil";
+import Pencil from "../../SVG/Pencil";
 import Trash from "../../SVG/Trash";
 
 const BusinessCardItem = ({
@@ -19,6 +19,7 @@ const BusinessCardItem = ({
   telephone = "",
   email = "",
   deleteAction,
+  editAction,
 }) => {
   return (
     <Wrapper>
@@ -28,9 +29,9 @@ const BusinessCardItem = ({
           <SubtitleGrey>{position}</SubtitleGrey>
         </LeftWrapper>
         <RightWrapper>
-          {/* <Button>
+          <Button onClick={() => editAction()}>
             <Pencil />
-          </Button> */}
+          </Button>
           <Button onClick={() => deleteAction()}>
             <Trash />
           </Button>
